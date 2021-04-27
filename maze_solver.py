@@ -1,6 +1,6 @@
 # 0 = path
 # 1 = wall
-# 2 = entry point
+# 2 = start point
 # 3 = entrance to layer above
 # 4 = entrance to layer below
 # 5 = endpoint
@@ -43,6 +43,9 @@ examplemaze10by10by3 = [
 ]
 
 
+'''
+Solver is a basic BFS algorithm using helper functions to locate start point and valid valid neighbors to explore.
+'''
 def solver(maze):
     start = find_start(maze)
     if not start:
@@ -57,17 +60,15 @@ def solver(maze):
         if node not in explored:
             neighbors = get_neighbors(maze, node)
             for neighbor in neighbors:
-                if neighbor not in explored:
-                    new_path = list(path)
-                    new_path.append(neighbor)
-                    queue.append(new_path)
-                    if maze[neighbor[0]][neighbor[1]][neighbor[2]] == 5:
-                        # print("shortest path found: {}".format(new_path))
-                        return new_path
+                new_path = list(path)
+                new_path.append(neighbor)
+                queue.append(new_path)
+                if maze[neighbor[0]][neighbor[1]][neighbor[2]] == 5:
+                    # print("shortest path found: {}".format(new_path))
+                    return new_path
             explored.append(node)
     # print("no path found")
     return False
-
 
 def get_neighbors(maze, node):
     valid_neighbors = []
@@ -137,8 +138,7 @@ def display_path(maze, path=False):
 
     else:
         for node in path:
-            new[node[0]][node[1]][node[2]] = 8 if new[node[0]][node[1]][node[2]] == 0 else new[node[0]][node[1]][
-                node[2]]
+            new[node[0]][node[1]][node[2]] = 8 if new[node[0]][node[1]][node[2]] == 0 else new[node[0]][node[1]][node[2]]
         for layer in new:
             for row in layer:
                 for x in row:
