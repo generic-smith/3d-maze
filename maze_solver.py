@@ -58,7 +58,7 @@ def solver(maze):
         node = path[-1]
 
         if node not in explored:
-            neighbors = get_neighbors(maze, node)
+            neighbors = get_neighbors(maze, node) #get valid neighbors from helper
             for neighbor in neighbors:
                 new_path = list(path)
                 new_path.append(neighbor)
